@@ -1,0 +1,19 @@
+@tailwind base; 
+@tailwind components;
+@tailwind utilities;
+
+.hover\:scale-105:hover {
+    transform: scale(1.05);
+  }
+  
+  .transition-transform {
+    transition: transform 0.3s;
+  }
+  
+h2{
+  color:chocolate;
+}
+
+h3{
+  color:chartreuse;
+}
