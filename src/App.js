@@ -54,11 +54,13 @@ const App = () => {
   const handleLogin = (status) => { setIsLoggedIn(status); };
 
   const getMovieRequest = async (searchValue) => {
+    if(!searchValue){
+      return
+    }
     const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=${apiKey}`;
     const response = await fetch(url);
     const responseJson = await response.json();
-    console.log(responseJson);
-    setMovies([responseJson]);
+    //console.log(responseJson.Search);
     if (responseJson.Search) {
       const shuffledMovies = shuffleArray(responseJson.Search);
       setMovies(shuffledMovies);
@@ -108,10 +110,12 @@ const App = () => {
 
   return (
     <Router> <div className='container mx-auto p-4 movie-app'> 
-		  <NavBar brandName="MyNetflop" navItems={navItems} searchValue={searchValue} setSearchValue={setSearchValue} /> 
+		  <NavBar brandName="MyNetflop" navItems={navItems} searchValue={searchValue} setSearchValue={setSearchValue} isLoggedIn={isLoggedIn}/> 
 			<Suspense fallback={<div className="container">Loading...</div>}> 
         <Routes> 
           <Route path="/" element={<Home plans={plans} onSelectPlan={handleSelectPlan}/>} /> 
+          <Route path="/Register/:plan" element={<MyRegister />} /> 
+          
           <Route path="/About" element={<About />} /> 
           <Route path="/Contact" element={<Contact />} /> 
           <Route path="/MovieList" element={ 
@@ -120,7 +124,9 @@ const App = () => {
             <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} /> 
             <MovieList movies={movies} handleFavouritesClick={addFavouriteMovie} favouriteComponent={AddFavourites} /> 
             <MovieListHeading heading='Favourites' /> 
-            <MovieList movies={favourites} handleFavouritesClick={removeFavouriteMovie} favouriteComponent={RemoveFavourites} /> </> } /> 
+            <MovieList movies={favourites} handleFavouritesClick={removeFavouriteMovie} favouriteComponent={RemoveFavourites} /> 
+            </> 
+          } /> 
             <Route path="/MovieDetails/:id" element={<MovieDetails />} /> 
           <Route path="/Register" element={<MyRegister />} />
           <Route path="/Login" element={<MyLogin onLogin={handleLogin}/>} />

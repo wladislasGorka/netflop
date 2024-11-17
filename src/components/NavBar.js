@@ -2,18 +2,20 @@ import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import SearchBox from './SearchBox';
 
-const NavBar = ({ brandName, navItems, searchValue, setSearchValue }) => {
+const NavBar = ({ brandName, navItems, searchValue, setSearchValue, isLoggedIn }) => {
   return (
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-2xl font-bold text-lime-500">{brandName}</div>
         <ul className="flex space-x-4">
           {navItems.map((item, index) => (
-            <li key={index}>
+            (isLoggedIn || item.label!=="Movies" ) && 
+            ((!isLoggedIn || item.label!=="Register") && (!isLoggedIn || item.label!=="Login")) &&
+            (<li key={index}>
               <NavLink to={item.path} className="text-orange-600 hover:text-gray-400">
                 {item.label}
               </NavLink>
-            </li>
+            </li>)
           ))}
         </ul>
         <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
