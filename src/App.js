@@ -17,6 +17,7 @@ import NoMatch from './components/NoMatch';
 import MovieDetails from './components/MovieDetails';
 
 const App = () => {
+  const apiKey = process.env.REACT_APP_OMDB_KEY;
   const [movies, setMovies] = useState([]);
   const [favourites, setFavourites] = useState([]);
   const [searchValue, setSearchValue] = useState('');
@@ -53,10 +54,11 @@ const App = () => {
   const handleLogin = (status) => { setIsLoggedIn(status); };
 
   const getMovieRequest = async (searchValue) => {
-    const url = {/* votre url omdb ici*/};
+    const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=${apiKey}`;
     const response = await fetch(url);
     const responseJson = await response.json();
-
+    console.log(responseJson);
+    setMovies([responseJson]);
     if (responseJson.Search) {
       const shuffledMovies = shuffleArray(responseJson.Search);
       setMovies(shuffledMovies);
@@ -106,25 +108,25 @@ const App = () => {
 
   return (
     <Router> <div className='container mx-auto p-4 movie-app'> 
-		<NavBar brandName="MyNetflop" navItems={navItems} searchValue={searchValue} setSearchValue={setSearchValue} /> 
+		  <NavBar brandName="MyNetflop" navItems={navItems} searchValue={searchValue} setSearchValue={setSearchValue} /> 
 			<Suspense fallback={<div className="container">Loading...</div>}> 
-			<Routes> 
-				<Route path="/" element={<Home plans={plans} onSelectPlan={handleSelectPlan}/>} /> 
-				<Route path="/About" element={<About />} /> 
-				<Route path="/Contact" element={<Contact />} /> 
-				<Route path="/MovieList" element={ 
-					<> 
-					<MovieListHeading heading='Movies' /> 
-					<SearchBox searchValue={searchValue} setSearchValue={setSearchValue} /> 
-					<MovieList movies={movies} handleFavouritesClick={addFavouriteMovie} favouriteComponent={AddFavourites} /> 
-					<MovieListHeading heading='Favourites' /> 
-					<MovieList movies={favourites} handleFavouritesClick={removeFavouriteMovie} favouriteComponent={RemoveFavourites} /> </> } /> 
-					<Route path="/MovieDetails/:id" element={<MovieDetails />} /> 
-				<Route path="/Register" element={<MyRegister />} />
-				<Route path="/Login" element={<MyLogin onLogin={handleLogin}/>} />
-				<Route path="/Plan" element={<MyPlan />} />
-				<Route path="*" element={<NoMatch />} /> 
-			</Routes> 
+        <Routes> 
+          <Route path="/" element={<Home plans={plans} onSelectPlan={handleSelectPlan}/>} /> 
+          <Route path="/About" element={<About />} /> 
+          <Route path="/Contact" element={<Contact />} /> 
+          <Route path="/MovieList" element={ 
+            <> 
+            <MovieListHeading heading='Movies' /> 
+            <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} /> 
+            <MovieList movies={movies} handleFavouritesClick={addFavouriteMovie} favouriteComponent={AddFavourites} /> 
+            <MovieListHeading heading='Favourites' /> 
+            <MovieList movies={favourites} handleFavouritesClick={removeFavouriteMovie} favouriteComponent={RemoveFavourites} /> </> } /> 
+            <Route path="/MovieDetails/:id" element={<MovieDetails />} /> 
+          <Route path="/Register" element={<MyRegister />} />
+          <Route path="/Login" element={<MyLogin onLogin={handleLogin}/>} />
+          <Route path="/Plan" element={<MyPlan />} />
+          <Route path="*" element={<NoMatch />} /> 
+        </Routes> 
 		</Suspense> 
 		</div> 
 	</Router>

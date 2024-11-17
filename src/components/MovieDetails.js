@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const MovieDetails = () => {
+  const apiKey = process.env.REACT_APP_OMDB_KEY;
   const { id } = useParams();
   const navigate = useNavigate();
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
     const getMovieDetails = async () => {
-      const url = `http://www.omdbapi.com/?i=${id}&apikey=5bc7a503`;
+      const url = `http://www.omdbapi.com/?i=${id}&apikey=${apiKey}`;
       const response = await fetch(url);
       const responseJson = await response.json();
 
