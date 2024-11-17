@@ -6,6 +6,7 @@ import NavBar from './components/NavBar';
 import MovieList from './components/MovieList';
 import MovieListHeading from './components/MovieListHeading';
 import SearchBox from './components/SearchBox';
+import SearchTypeBox from './components/SearchTypeBox';
 import AddFavourites from './components/AddFavourites';
 import RemoveFavourites from './components/RemoveFavourites';
 import About from './components/About';
@@ -21,6 +22,7 @@ const App = () => {
   const [movies, setMovies] = useState([]);
   const [favourites, setFavourites] = useState([]);
   const [searchValue, setSearchValue] = useState('');
+  const [searchType, setSearchType] = useState('');
   const navItems = [
     { path: '/', label: 'Home' },
     { path: '/MovieList', label: 'Movies' },
@@ -53,14 +55,16 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const handleLogin = (status) => { setIsLoggedIn(status); };
 
-  const getMovieRequest = async (searchValue) => {
-    if(!searchValue){
+  const getMovieRequest = async (searchValue,searchType) => {
+    if(!searchValue && !searchType){
       return
     }
-    const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=${apiKey}`;
+    let url = `http://www.omdbapi.com/?s=${searchValue}&type=${searchType}&apikey=${apiKey}`;
+    
     const response = await fetch(url);
     const responseJson = await response.json();
     //console.log(responseJson.Search);
+    //console.log("type= "+searchType);
     if (responseJson.Search) {
       const shuffledMovies = shuffleArray(responseJson.Search);
       setMovies(shuffledMovies);
@@ -68,8 +72,8 @@ const App = () => {
   };
 
   useEffect(() => {
-    getMovieRequest(searchValue);
-  }, [searchValue]);
+    getMovieRequest(searchValue,searchType);
+  }, [searchValue,searchType]);
 
   useEffect(() => {
     const movieFavourites = JSON.parse(
@@ -109,7 +113,8 @@ const App = () => {
   };
 
   return (
-    <Router> <div className='container mx-auto p-4 movie-app'> 
+    <Router> 
+      <div className='container mx-auto p-4 movie-app'> 
 		  <NavBar brandName="MyNetflop" navItems={navItems} searchValue={searchValue} setSearchValue={setSearchValue} isLoggedIn={isLoggedIn}/> 
 			<Suspense fallback={<div className="container">Loading...</div>}> 
         <Routes> 
@@ -121,7 +126,10 @@ const App = () => {
           <Route path="/MovieList" element={ 
             <> 
             <MovieListHeading heading='Movies' /> 
+            <div className='flex'>
             <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} /> 
+            <SearchTypeBox searchType={searchType} setSearchType={setSearchType} />
+            </div>
             <MovieList movies={movies} handleFavouritesClick={addFavouriteMovie} favouriteComponent={AddFavourites} /> 
             <MovieListHeading heading='Favourites' /> 
             <MovieList movies={favourites} handleFavouritesClick={removeFavouriteMovie} favouriteComponent={RemoveFavourites} /> 
