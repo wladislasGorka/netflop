@@ -29,7 +29,8 @@ const App = () => {
     { path: '/Contact', label: 'Contact' },
     { path: '/About', label: 'About' },
 	{ path: '/Register', label: 'Register'},
-	{ path: '/Login', label: 'Login'}
+	{ path: '/Login', label: 'Login'},
+  { path: '/MyPlan', label: 'MyPlan'}
   ];
   const plans = [
 	{
@@ -138,7 +139,7 @@ const App = () => {
             <Route path="/MovieDetails/:id" element={<MovieDetails />} /> 
           <Route path="/Register" element={<MyRegister />} />
           <Route path="/Login" element={<MyLogin onLogin={handleLogin}/>} />
-          <Route path="/Plan" element={<MyPlan />} />
+          <Route path="/MyPlan" element={<MyPlan plans={plans} />} />
           <Route path="*" element={<NoMatch />} /> 
         </Routes> 
 		</Suspense> 

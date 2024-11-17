@@ -13,11 +13,11 @@ const MyPlan = ({plans}) => {
     console.log('Form submitted with plan:', selectedPlan);
   };
 {/* gestion du login  */}
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
-  const handleLogin = (status) => { setIsLoggedIn(status); };
+  // const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  // const handleLogin = (status) => { setIsLoggedIn(status); };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto">
       <Home plans={plans} onSelectPlan={handleSelectPlan} />
       {selectedPlan && (
         <form onSubmit={handleSubmit} className="mt-4">

@@ -9,7 +9,7 @@ const NavBar = ({ brandName, navItems, searchValue, setSearchValue, isLoggedIn }
         <div className="text-2xl font-bold text-lime-500">{brandName}</div>
         <ul className="flex space-x-4">
           {navItems.map((item, index) => (
-            (isLoggedIn || item.label!=="Movies" ) && 
+            ((isLoggedIn || item.label!=="Movies" ) && (isLoggedIn || item.label!=="MyPlan" )) &&
             ((!isLoggedIn || item.label!=="Register") && (!isLoggedIn || item.label!=="Login")) &&
             (<li key={index}>
               <NavLink to={item.path} className="text-orange-600 hover:text-gray-400">

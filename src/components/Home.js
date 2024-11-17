@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Home = ({ plans, onSelectPlan }) => {
     const [selectedPlan, setSelectedPlan] = useState(null); 
-    const handleSelectPlan = (planName) => { setSelectedPlan(planName); };
-      
+    const handleSelectPlan = (planName) => { onSelectPlan(planName); };
   return (
     <div className="bg-gray-900 py-16">
     <div className="container mx-auto px-4"> 
@@ -31,14 +30,14 @@ const Home = ({ plans, onSelectPlan }) => {
               </ul>
             </div>
             <p className="text-lg mb-2">{plan.price}</p>
-            <Link to={`/Register/${plan.name}`}>
+            {/* <Link to={`/Register/${plan.name}`}> */}
               <button
                 onClick={() => handleSelectPlan(plan.name)}
                 className="px-4 py-2 bg-green-500 text-white rounded"
               >
                 S'abonner
               </button>
-            </Link>
+            {/* </Link> */}
           </div>
         ))}
       </div>
