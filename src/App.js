@@ -49,6 +49,8 @@ const App = () => {
 	  features: ['Accès illimité', 'Support par téléphone', 'Utilisateurs illimités'],
 	},
   ];
+  const types = ["movie","series","episode","game"];
+  const typesSearchLabel = "-Type of search-";
 
   const [selectedPlan, setSelectedPlan] = useState(null); 
   const handleSelectPlan = (planName) => { setSelectedPlan(planName); };
@@ -119,8 +121,7 @@ const App = () => {
 		  <NavBar brandName="MyNetflop" navItems={navItems} searchValue={searchValue} setSearchValue={setSearchValue} isLoggedIn={isLoggedIn}/> 
 			<Suspense fallback={<div className="container">Loading...</div>}> 
         <Routes> 
-          <Route path="/" element={<Home plans={plans} onSelectPlan={handleSelectPlan}/>} /> 
-          <Route path="/Register/:plan" element={<MyRegister />} /> 
+          <Route path="/" element={<Home plans={plans} onSelectPlan={handleSelectPlan}/>} />
           
           <Route path="/About" element={<About />} /> 
           <Route path="/Contact" element={<Contact />} /> 
@@ -129,7 +130,7 @@ const App = () => {
             <MovieListHeading heading='Movies' /> 
             <div className='flex'>
             <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} /> 
-            <SearchTypeBox searchType={searchType} setSearchType={setSearchType} />
+            <SearchTypeBox searchType={searchType} setSearchType={setSearchType} types={types} typesSearchLabel={typesSearchLabel}/>
             </div>
             <MovieList movies={movies} handleFavouritesClick={addFavouriteMovie} favouriteComponent={AddFavourites} /> 
             <MovieListHeading heading='Favourites' /> 

@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import MyForm from './MyForm';
+import { useNavigate } from 'react-router-dom';
 
 const MyLogin = ({ onLogin }) => {
+  
+  const navigate = useNavigate();
   const fields = [
     { name: 'email', label: 'Email', type: 'email', placeholder: 'Entrer votre email' },
     { name: 'password', label: 'Password', type: 'password', placeholder: 'Ecrire votre mot de passe' },
@@ -13,6 +16,7 @@ const MyLogin = ({ onLogin }) => {
     if (user && user.email === email && user.password === password) {
       onLogin(true);
       alert('Connexion réussie !');
+      navigate('/MyPlan');
     } else {
       alert('Email ou mot de passe incorrect');
     }

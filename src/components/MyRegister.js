@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import MyForm from './MyForm';
 
 const MyRegister = () => {
+
   const fields = [
     { name: 'username', label: 'Username', type: 'text', placeholder: 'Entrer votre nom' },
     { name: 'email', label: 'Email', type: 'email', placeholder: 'Entrer votre email' },

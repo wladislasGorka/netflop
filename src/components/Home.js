@@ -30,14 +30,12 @@ const Home = ({ plans, onSelectPlan }) => {
               </ul>
             </div>
             <p className="text-lg mb-2">{plan.price}</p>
-            {/* <Link to={`/Register/${plan.name}`}> */}
               <button
                 onClick={() => handleSelectPlan(plan.name)}
                 className="px-4 py-2 bg-green-500 text-white rounded"
               >
                 S'abonner
               </button>
-            {/* </Link> */}
           </div>
         ))}
       </div>
