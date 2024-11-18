@@ -1,11 +1,12 @@
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import SearchBox from './SearchBox';
+import ButtonDeconnexion from './ButtonDeconnexion';
 
 const NavBar = ({ brandName, navItems, searchValue, setSearchValue, isLoggedIn }) => {
   return (
     <nav className="bg-gray-800 p-4">
-      <div className="container mx-auto flex justify-between items-center">
+      <div className="container mx-auto flex justify-between items-baseline">
         <div className="text-2xl font-bold text-lime-500">{brandName}</div>
         <ul className="flex space-x-4">
           {navItems.map((item, index) => (
@@ -18,7 +19,10 @@ const NavBar = ({ brandName, navItems, searchValue, setSearchValue, isLoggedIn }
             </li>)
           ))}
         </ul>
-        <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
+        {isLoggedIn && (<ButtonDeconnexion />)}
+        {!isLoggedIn && (<div></div>)}
+        
+        {/* <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} /> */}
       </div>
     </nav>
   );

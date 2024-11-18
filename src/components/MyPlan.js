@@ -30,7 +30,7 @@ const MyPlan = ({plans, subscribePlan, handleSubscribePlan}) => {
     <div className="container mx-auto">
       {!subscription && (
         <>
-        <Home plans={plans} onSelectPlan={handleSelectPlan} />
+        <Home plans={plans} onSelectPlan={handleSelectPlan} isLoggedIn="true"/>
       {selectedPlan && (
         <>
         <div className="bg-gray-900 py-16">

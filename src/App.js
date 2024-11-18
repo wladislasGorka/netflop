@@ -127,7 +127,7 @@ const App = () => {
 		  <NavBar brandName="MyNetflop" navItems={navItems} searchValue={searchValue} setSearchValue={setSearchValue} isLoggedIn={isLoggedIn}/> 
 			<Suspense fallback={<div className="container">Loading...</div>}> 
         <Routes> 
-          <Route path="/" element={<Home plans={plans} onSelectPlan={handleSelectPlan}/>} />
+          <Route path="/" element={<Home plans={plans} onSelectPlan={handleSelectPlan} isLoggedIn={isLoggedIn} />} />
           
           <Route path="/About" element={<About />} /> 
           <Route path="/Contact" element={<Contact />} /> 

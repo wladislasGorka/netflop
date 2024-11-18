@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 
-const Home = ({ plans, onSelectPlan }) => {
-    const [selectedPlan, setSelectedPlan] = useState(null); 
-    const handleSelectPlan = (planName) => { onSelectPlan(planName); };
+const Home = ({ plans, onSelectPlan, isLoggedIn }) => {
+  const [selectedPlan, setSelectedPlan] = useState(null); 
+  const handleSelectPlan = (planName) => { onSelectPlan(planName); };
+  const user = JSON.parse(localStorage.getItem('user'));
+
   return (
     <div className="bg-gray-900 py-16">
     <div className="container mx-auto px-4"> 
@@ -30,12 +32,27 @@ const Home = ({ plans, onSelectPlan }) => {
               </ul>
             </div>
             <p className="text-lg mb-2">{plan.price}</p>
-              <button
-                onClick={() => handleSelectPlan(plan.name)}
-                className="px-4 py-2 bg-green-500 text-white rounded"
-              >
-                S'abonner
-              </button>
+            {isLoggedIn && (
+              <Link to="/MyPlan">
+                <button
+                  onClick={() => handleSelectPlan(plan.name)}
+                  className="px-4 py-2 bg-green-500 text-white rounded"
+                >
+                  S'abonner
+                </button>
+              </Link>
+            )}
+            {!isLoggedIn && (
+              <Link to="/Register">
+                <button
+                  onClick={() => handleSelectPlan(plan.name)}
+                  className="px-4 py-2 bg-green-500 text-white rounded"
+                >
+                  S'abonner
+                </button>
+              </Link>
+            )}
+            
           </div>
         ))}
       </div>
