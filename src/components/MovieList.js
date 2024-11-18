@@ -52,7 +52,7 @@ const MovieList = (props) => {
     {props.movies.map((movie, index) => (
       <div key={movie.imdbID} className="inline-block bg-gray-400 p-4 rounded-lg m-2">
         <Link to={`/MovieDetails/${movie.imdbID}`}> 
-          <img src={movie.Poster} alt={movie.Title} className="w-64 h-96 object-full" /> 
+          <img src={movie.Poster} alt={movie.Title} className="m-auto w-64 h-96 object-full" /> 
         </Link>
         <h2 className="text-xl font-bold">{movie.Title}</h2>
 		<div

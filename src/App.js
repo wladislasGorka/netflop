@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect, lazy, Suspense, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import './index.css';
 import Home from './components/Home';
@@ -16,6 +16,7 @@ import MyRegister from './components/MyRegister';
 import MyLogin from './components/MyLogin';
 import NoMatch from './components/NoMatch';
 import MovieDetails from './components/MovieDetails';
+import { LogContext } from './components/LogContext';
 
 const App = () => {
   const apiKey = process.env.REACT_APP_OMDB_KEY;
@@ -123,6 +124,7 @@ const App = () => {
 
   return (
     <Router> 
+      <LogContext.Provider value={{isLoggedIn, setIsLoggedIn}}>
       <div className='container mx-auto p-4 movie-app'> 
 		  <NavBar brandName="MyNetflop" navItems={navItems} searchValue={searchValue} setSearchValue={setSearchValue} isLoggedIn={isLoggedIn}/> 
 			<Suspense fallback={<div className="container">Loading...</div>}> 
@@ -151,6 +153,7 @@ const App = () => {
         </Routes> 
 		</Suspense> 
 		</div> 
+    </LogContext.Provider>
 	</Router>
 	
   );
