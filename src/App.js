@@ -124,6 +124,7 @@ const App = () => {
 
   return (
     <Router> 
+      {console.log("coucou")}
       <LogContext.Provider value={{isLoggedIn, setIsLoggedIn}}>
       <div className='container mx-auto p-4 movie-app'> 
 		  <NavBar brandName="MyNetflop" navItems={navItems} searchValue={searchValue} setSearchValue={setSearchValue} isLoggedIn={isLoggedIn}/> 

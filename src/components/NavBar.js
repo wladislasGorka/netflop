@@ -20,7 +20,7 @@ const NavBar = ({ brandName, navItems, searchValue, setSearchValue, isLoggedIn }
           ))}
         </ul>
         {isLoggedIn && (<ButtonDeconnexion />)}
-        {!isLoggedIn && (<div></div>)}
+        {!isLoggedIn && (<div className='w-16'></div>)}
         
         {/* <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} /> */}
       </div>
