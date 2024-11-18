@@ -2,20 +2,25 @@ import React, { useState } from 'react';
 import Home from './Home';
 import MyForm from './MyForm';
 
-const MyPlan = ({plans}) => {
+const MyPlan = ({plans, subscribePlan, handleSubscribePlan}) => {
   const [selectedPlan, setSelectedPlan] = useState(null);
   const fields = [
     { name: 'nom', label: 'Nom', type: 'text', placeholder: 'Entrer votre Nom' },
     { name: 'email', label: 'Email', type: 'email', placeholder: 'Entrer votre email' },
   ];
+  const subscription = JSON.parse(localStorage.getItem('user'))["subscription"];
 
   const handleSelectPlan = (planName) => {
     setSelectedPlan(planName);
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     console.log('Form submitted with plan:', selectedPlan);
+    let user = JSON.parse(localStorage.getItem('user'));
+    user["subscription"] = selectedPlan;
+    console.log(user);
+    localStorage.setItem('user', JSON.stringify(user));
+    handleSubscribePlan(selectedPlan);
   };
 {/* gestion du login  */}
   // const [isLoggedIn, setIsLoggedIn] = useState(false); 
@@ -23,7 +28,9 @@ const MyPlan = ({plans}) => {
 
   return (
     <div className="container mx-auto">
-      <Home plans={plans} onSelectPlan={handleSelectPlan} />
+      {!subscription && (
+        <>
+        <Home plans={plans} onSelectPlan={handleSelectPlan} />
       {selectedPlan && (
         <>
         <div className="bg-gray-900 py-16">
@@ -60,6 +67,14 @@ const MyPlan = ({plans}) => {
         </form> */}
         </>
       )}
+        </>
+      )}
+      {subscription && (
+        <div className="bg-gray-900 p-16">
+        <h2 className="text-xl font-bold mb-2">Vous êtes inscrit à la formule {subscription}</h2>
+        </div>
+      )}
+      
     </div>
   );
 };

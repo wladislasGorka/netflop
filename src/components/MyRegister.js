@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import MyForm from './MyForm';
+import ButtonNavigation from './ButtonNavigation';
 
 const MyRegister = () => {
 
@@ -23,6 +24,7 @@ const MyRegister = () => {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl text-white font-bold mb-4">S'enregistrer</h1>
       <MyForm fields={fields} onSubmit={handleRegister} />
+      <ButtonNavigation path="/Login" label="Déjà inscrit" />
     </div>
     </div>
   );

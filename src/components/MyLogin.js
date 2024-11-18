@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import MyForm from './MyForm';
 import { useNavigate } from 'react-router-dom';
+import ButtonNavigation from './ButtonNavigation';
 
 const MyLogin = ({ onLogin }) => {
   
@@ -16,7 +17,12 @@ const MyLogin = ({ onLogin }) => {
     if (user && user.email === email && user.password === password) {
       onLogin(true);
       alert('Connexion réussie !');
-      navigate('/MyPlan');
+      if(!user.subscription){
+        navigate('/MyPlan');
+      }else{
+        navigate('/MovieList');
+      }
+      
     } else {
       alert('Email ou mot de passe incorrect');
     }
@@ -24,11 +30,12 @@ const MyLogin = ({ onLogin }) => {
 
   return (
     <div className="bg-gray-900 py-16">
-    <div className="container mx-auto px-4"></div>
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl text-white font-bold mb-4">Se connecter</h1>
-      <MyForm fields={fields} onSubmit={handleLogin} />
-    </div>
+      <div className="container mx-auto px-4"></div>
+      <div className="container mx-auto p-4">
+        <h1 className="text-2xl text-white font-bold mb-4">Se connecter</h1>
+        <MyForm fields={fields} onSubmit={handleLogin} />
+          <ButtonNavigation path="/Register" label="Inscription" />
+      </div>
     </div>
   );
 };

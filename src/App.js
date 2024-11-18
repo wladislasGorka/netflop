@@ -55,6 +55,12 @@ const App = () => {
   const [selectedPlan, setSelectedPlan] = useState(null); 
   const handleSelectPlan = (planName) => { setSelectedPlan(planName); };
   
+  const [subscribePlan, setSubscribePlan] = useState(null);
+  const handleSubscribePlan = (planName) => {
+    //console.log("plan:"+planName);
+    setSubscribePlan(planName); 
+  };
+
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const handleLogin = (status) => { setIsLoggedIn(status); };
 
@@ -125,7 +131,7 @@ const App = () => {
           
           <Route path="/About" element={<About />} /> 
           <Route path="/Contact" element={<Contact />} /> 
-          <Route path="/MovieList" element={ 
+          <Route path="/MovieList/" element={ 
             <> 
             <MovieListHeading heading='Movies' /> 
             <div className='flex'>
@@ -137,10 +143,10 @@ const App = () => {
             <MovieList movies={favourites} handleFavouritesClick={removeFavouriteMovie} favouriteComponent={RemoveFavourites} /> 
             </> 
           } /> 
-            <Route path="/MovieDetails/:id" element={<MovieDetails />} /> 
+          <Route path="/MovieDetails/:id" element={<MovieDetails />} /> 
           <Route path="/Register" element={<MyRegister />} />
           <Route path="/Login" element={<MyLogin onLogin={handleLogin}/>} />
-          <Route path="/MyPlan" element={<MyPlan plans={plans} />} />
+          <Route path="/MyPlan" element={<MyPlan plans={plans} subscribePlan={subscribePlan} handleSubscribePlan={handleSubscribePlan}/>} />
           <Route path="*" element={<NoMatch />} /> 
         </Routes> 
 		</Suspense> 
