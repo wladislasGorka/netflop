@@ -124,13 +124,12 @@ const App = () => {
 
   return (
     <Router> 
-      {console.log("coucou")}
       <LogContext.Provider value={{isLoggedIn, setIsLoggedIn}}>
       <div className='container mx-auto p-4 movie-app'> 
 		  <NavBar brandName="MyNetflop" navItems={navItems} searchValue={searchValue} setSearchValue={setSearchValue} isLoggedIn={isLoggedIn}/> 
 			<Suspense fallback={<div className="container">Loading...</div>}> 
         <Routes> 
-          <Route path="/" element={<Home plans={plans} onSelectPlan={handleSelectPlan} isLoggedIn={isLoggedIn} />} />
+          <Route path="/" element={<Home plans={plans} onSelectPlan={handleSelectPlan} subscribePlan={subscribePlan}/>} />
           
           <Route path="/About" element={<About />} /> 
           <Route path="/Contact" element={<Contact />} /> 
@@ -149,7 +148,7 @@ const App = () => {
           <Route path="/MovieDetails/:id" element={<MovieDetails />} /> 
           <Route path="/Register" element={<MyRegister />} />
           <Route path="/Login" element={<MyLogin onLogin={handleLogin}/>} />
-          <Route path="/MyPlan" element={<MyPlan plans={plans} subscribePlan={subscribePlan} handleSubscribePlan={handleSubscribePlan}/>} />
+          <Route path="/MyPlan" element={<MyPlan plans={plans} />} />
           <Route path="*" element={<NoMatch />} /> 
         </Routes> 
 		</Suspense> 

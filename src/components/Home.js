@@ -1,20 +1,39 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import { Link } from 'react-router-dom';
+import { LogContext } from './LogContext';
 
-const Home = ({ plans, onSelectPlan, isLoggedIn }) => {
-  const [selectedPlan, setSelectedPlan] = useState(null); 
-  const handleSelectPlan = (planName) => { onSelectPlan(planName); };
+const Home = ({ plans, onSelectPlan }) => {
+  const { isLoggedIn, setIsLoggedIn } = useContext(LogContext);
+
+  const handleSelectPlan = (planName) => { 
+    onSelectPlan(planName); 
+  };
+
   const user = JSON.parse(localStorage.getItem('user'));
 
   return (
     <div className="bg-gray-900 py-16">
     <div className="container mx-auto px-4"> 
-      <h1 className="text-6xl text-gray-200 leading-relaxed text-center">"Bienvenue sur Netflop"</h1>
-      <h2 className="text-4xl text-gray-400 leading-relaxed text-center">
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
-      </h2>
+      {!isLoggedIn &&
+        <>
+          <h1 className="text-6xl text-gray-200 leading-relaxed text-center">"Bienvenue sur Netflop"</h1>
+          <h2 className="text-4xl text-gray-400 leading-relaxed text-center">
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+          </h2>
+        </>
+      }
+      {isLoggedIn &&
+        <>
+          <h1 className="text-6xl text-gray-200 leading-relaxed text-center">Bonjour {user.username}</h1>
+          <h2 className="text-4xl text-gray-400 leading-relaxed">
+            Change de plan:
+          </h2>
+        </>
+      }
       <div className="flex justify-around">
         {plans.map((plan, index) => (
+          ((!isLoggedIn || user.subscription!==plan.name) &&
+
           <div key={index} className="bg-white w-64 h-96 content-center  rounded-lg shadow-lg p-8">
             <div className="border p-4 rounded shadow-lg">
               <div className="relative overflow-hidden">
@@ -51,9 +70,9 @@ const Home = ({ plans, onSelectPlan, isLoggedIn }) => {
                   S'abonner
                 </button>
               </Link>
-            )}
-            
+            )}            
           </div>
+        )
         ))}
       </div>
     </div>
