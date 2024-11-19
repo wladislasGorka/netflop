@@ -1,9 +1,17 @@
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import SearchBox from './SearchBox';
 import ButtonDeconnexion from './ButtonDeconnexion';
+import Modal from './Modal';
 
 const NavBar = ({ brandName, navItems, searchValue, setSearchValue, isLoggedIn }) => {
+  const [showModal, setShowModal] = useState(false);
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
+  
   return (
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between items-baseline">
@@ -19,7 +27,12 @@ const NavBar = ({ brandName, navItems, searchValue, setSearchValue, isLoggedIn }
             </li>)
           ))}
         </ul>
-        {isLoggedIn && (<ButtonDeconnexion />)}
+        {isLoggedIn && (
+          <>
+          <ButtonDeconnexion toggleModal={toggleModal}/>
+          <Modal show={showModal} onClose={toggleModal} />
+          </>
+        )}
         {!isLoggedIn && (<div className='w-16'></div>)}
         
         {/* <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} /> */}
