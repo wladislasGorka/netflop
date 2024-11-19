@@ -3,19 +3,14 @@ import Home from './Home';
 import MyForm from './MyForm';
 import { LogContext } from './LogContext';
 
-const MyPlan = ({plans}) => {
+const MyPlan = ({plans, selectedPlan, onSelectPlan}) => {
   const { isLoggedIn, setIsLoggedIn } = useContext(LogContext);
-  const [selectedPlan, setSelectedPlan] = useState(null);
   const [selectedSubscription,setSelectedSubscription] = useState(null);
   const fields = [
     { name: 'nom', label: 'Nom', type: 'text', placeholder: 'Entrer votre Nom' },
     { name: 'email', label: 'Email', type: 'email', placeholder: 'Entrer votre email' },
   ];
   const subscription = JSON.parse(localStorage.getItem('user'))["subscription"];
-
-  const handleSelectPlan = (planName) => {
-    setSelectedPlan(planName);
-  };
 
   const handleSubmit = (e) => {
     console.log('Form submitted with plan:', selectedPlan);
@@ -35,8 +30,8 @@ const MyPlan = ({plans}) => {
       {(subscription && isLoggedIn) && (
         <div className="bg-gray-900 p-16">
         <h2 className="text-xl font-bold mb-2">Vous êtes inscrit à la formule {subscription}</h2>
-        <Home plans={plans} onSelectPlan={handleSelectPlan}/>
-        {selectedPlan && (
+        <Home plans={plans} onSelectPlan={onSelectPlan}/>
+        {(selectedPlan && selectedPlan!==subscription) && (
           <>
           <div className="bg-gray-900 py-16">
             <div className="container mx-auto p-4">
@@ -50,7 +45,7 @@ const MyPlan = ({plans}) => {
       )}
       {(!subscription && isLoggedIn) &&(
         <>
-        <Home plans={plans} onSelectPlan={handleSelectPlan}/>
+        <Home plans={plans} onSelectPlan={onSelectPlan}/>
         {selectedPlan && (
           <>
           <div className="bg-gray-900 py-16">

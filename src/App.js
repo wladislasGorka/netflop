@@ -54,13 +54,16 @@ const App = () => {
   const typesSearchLabel = "-Type of search-";
 
   const [selectedPlan, setSelectedPlan] = useState(null); 
-  const handleSelectPlan = (planName) => { setSelectedPlan(planName); };
-  
-  const [subscribePlan, setSubscribePlan] = useState(null);
-  const handleSubscribePlan = (planName) => {
-    //console.log("plan:"+planName);
-    setSubscribePlan(planName); 
+  const handleSelectPlan = (planName) => { 
+    setSelectedPlan(planName);
+    //console.log(selectedPlan);
   };
+  
+  // const [subscribePlan, setSubscribePlan] = useState(null);
+  // const handleSubscribePlan = (planName) => {
+  //   //console.log("plan:"+planName);
+  //   setSubscribePlan(planName); 
+  // };
 
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const handleLogin = (status) => { setIsLoggedIn(status); };
@@ -129,7 +132,7 @@ const App = () => {
 		  <NavBar brandName="MyNetflop" navItems={navItems} searchValue={searchValue} setSearchValue={setSearchValue} isLoggedIn={isLoggedIn}/> 
 			<Suspense fallback={<div className="container">Loading...</div>}> 
         <Routes> 
-          <Route path="/" element={<Home plans={plans} onSelectPlan={handleSelectPlan} subscribePlan={subscribePlan}/>} />
+          <Route path="/" element={<Home plans={plans} onSelectPlan={handleSelectPlan} />} />
           
           <Route path="/About" element={<About />} /> 
           <Route path="/Contact" element={<Contact />} /> 
@@ -148,7 +151,7 @@ const App = () => {
           <Route path="/MovieDetails/:id" element={<MovieDetails />} /> 
           <Route path="/Register" element={<MyRegister />} />
           <Route path="/Login" element={<MyLogin onLogin={handleLogin}/>} />
-          <Route path="/MyPlan" element={<MyPlan plans={plans} />} />
+          <Route path="/MyPlan" element={<MyPlan plans={plans} selectedPlan={selectedPlan} onSelectPlan={handleSelectPlan}/>} />
           <Route path="*" element={<NoMatch />} /> 
         </Routes> 
 		</Suspense> 

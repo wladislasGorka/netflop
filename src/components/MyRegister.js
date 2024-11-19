@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MyForm from './MyForm';
 import ButtonNavigation from './ButtonNavigation';
 
 const MyRegister = () => {
+  const navigate = useNavigate();
 
   const fields = [
     { name: 'username', label: 'Username', type: 'text', placeholder: 'Entrer votre nom' },
@@ -16,6 +18,7 @@ const MyRegister = () => {
     const user = { username, email, password };
     localStorage.setItem('user', JSON.stringify(user));
     alert('Inscription réussie !');
+    navigate('/Login');
   };
 
   return (
